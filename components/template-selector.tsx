@@ -56,10 +56,10 @@ export default function TemplateSelector({ onSelect }: { onSelect: () => void })
   }
 
   return (
-    <div className="fade-in">
+    <div className="animate-fade-in">
       <div className="mb-8 text-center">
         <h1 className="text-4xl font-bold mb-3 gradient-text">Choose Your Template</h1>
-        <p className="text-muted text-lg max-w-2xl mx-auto">Select from our professionally designed templates to create your standout resume</p>
+        <p className="text-foreground text-lg max-w-2xl mx-auto">Select from our professionally designed templates to create your standout resume</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -79,7 +79,7 @@ export default function TemplateSelector({ onSelect }: { onSelect: () => void })
             </div>
             <CardContent className="p-6 bg-background/50 backdrop-blur-sm">
               <h3 className="text-xl font-semibold mb-2">{template.name}</h3>
-              <p className="text-muted mb-4">{template.description}</p>
+              <p className="text-foreground mb-4">{template.description}</p>
               <Button 
                 className="w-full button-primary group-hover:scale-[1.02]"
                 onClick={() => handleSelect(template.id)}

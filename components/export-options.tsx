@@ -7,6 +7,7 @@ import { Download, Loader2 } from "lucide-react"
 import { useResumeContext } from "@/context/resume-context"
 import { jsPDF } from "jspdf"
 import html2canvas from "html2canvas"
+import ResumePreview from "./resume-preview"
 
 export default function ExportOptions() {
   const { resumeData, selectedTemplate } = useResumeContext()
@@ -40,7 +41,6 @@ export default function ExportOptions() {
       clone.style.overflow = "visible"
       exportDiv.appendChild(clone)
       
-      // Wait longer for styles to load and apply
       await new Promise(resolve => setTimeout(resolve, 1000))
 
       const canvas = await html2canvas(clone, {
@@ -115,7 +115,6 @@ export default function ExportOptions() {
       const clone = resumeElement.cloneNode(true) as HTMLElement
       exportDiv.appendChild(clone)
 
-      // Copy all stylesheets
       const styleSheets = document.styleSheets
       let css = ''
       Array.from(styleSheets).forEach(sheet => {
@@ -169,14 +168,6 @@ export default function ExportOptions() {
       {/* Hidden element for export */}
       <div id="resume-preview-for-export" className="hidden">
         <ResumePreview fullPage={true} />
-      </div>
-          {resumeData.skills.length > 0 && (
-            <div>
-              <h2 className="text-xl font-bold mb-2">Skills</h2>
-              <p>{resumeData.skills.map((skill) => skill.name).join(", ")}</p>
-            </div>
-          )}
-        </div>
       </div>
 
       <DropdownMenu>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -13,12 +13,17 @@ import Header from "@/components/header"
 
 export default function ResumeBuilder() {
   const [activeTab, setActiveTab] = useState("templates")
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
 
   return (
-    <div className="flex flex-col min-h-screen bg-surface">
+    <div className={`flex flex-col min-h-screen bg-surface ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}>
       <Header />
 
-      <main className="flex-grow container mx-auto px-4 py-8 fade-in">
+      <main className="flex-grow container mx-auto px-4 py-8">
         <Tabs defaultValue="templates" className="w-full" value={activeTab} onValueChange={setActiveTab}>
           <div className="flex justify-between items-center mb-8">
             <TabsList className="grid grid-cols-4 w-[400px] bg-background/50 backdrop-blur-sm shadow-sm">

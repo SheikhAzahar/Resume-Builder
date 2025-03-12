@@ -1,23 +1,32 @@
 "use client"
 
-import type { Metadata } from "next"
 import dynamic from "next/dynamic"
 import { ErrorBoundary } from "@/components/error-boundary"
+import { Suspense } from "react"
 
-const metadata = {
-  title: "Resume Builder - InstantResume.in",
-  description: "Create your professional resume with our easy-to-use builder",
-}
+const ResumeBuilder = dynamic(() => import("@/components/resume-builder"), {
+  ssr: false,
+  loading: () => null
+})
 
-const ResumeBuilder = dynamic(() => import("@/components/resume-builder"))
-const ResumeProvider = dynamic(() => import("@/context/resume-context").then(mod => mod.ResumeProvider))
+const ResumeProvider = dynamic(() => import("@/context/resume-context").then(mod => mod.ResumeProvider), {
+  ssr: false
+})
+
+const LoadingComponent = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="animate-pulse text-lg text-gray-600">Loading...</div>
+  </div>
+)
 
 export default function BuilderPage() {
   return (
     <ErrorBoundary>
-      <ResumeProvider>
-        <ResumeBuilder />
-      </ResumeProvider>
+      <Suspense fallback={<LoadingComponent />}>
+        <ResumeProvider>
+          <ResumeBuilder />
+        </ResumeProvider>
+      </Suspense>
     </ErrorBoundary>
   )
 }
